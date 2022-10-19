@@ -5,19 +5,25 @@ class Node:
         self.action = _action
         self.cost = _cost
 
+    # quan jo estic en un punt puc veure l'acció que m'ha portat allí
+    # No puc veure els meus successors
     def total_path(self):
-        raise NotImplementedError
+        if not self.parent:
+            return []
+        return self.parent.total_path() + [self.action]  # action es la última acció que va del meu pare a mi
 
     def __str__(self):
         # TODO implement, default behaviour:
-        return super().__str__()
+        return f"Node[{self.state}, {self.action}, {self.cost}]"
 
+
+# sudo apt install python3-tkinter
 
 def test_robot():
     # For the problem of the robot cleaning two cells
     from collections import namedtuple
     State = namedtuple("State", "cell clean0 clean1")
-    
+
     root = Node(State(0, False, False))
     step1 = Node(
         State(0, True, False),
